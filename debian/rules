@@ -22,7 +22,7 @@ override_dh_auto_clean:
 	test ! -f include/linux/compat_autoconf.h.backup || mv include/linux/compat_autoconf.h.backup include/linux/compat_autoconf.h
 
 override_dh_auto_install:
-	make install-modules KMODPATH_ARG='INSTALL_MOD_PATH=$(CURDIR)/debian/compat-wireless/lib/modules/$(shell uname -r)'
+	make install-modules KMODPATH_ARG='INSTALL_MOD_PATH=$(CURDIR)/debian/compat-wireless'
 
 override_dh_installudev:
 	dh_installudev --name=compat_firmware --priority=50
