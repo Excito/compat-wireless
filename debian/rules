@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@ 
+
+override_dh_auto_configure:
+	cp -a include/linux/compat_autoconf.h include/linux/compat_autoconf.h.backup
+	scripts/driver-select ath9k
+
+override_dh_auto_clean:
+	dh_auto_clean $@
+	scripts/driver-select restore
+	test ! -f include/linux/compat_autoconf.h.backup || mv include/linux/compat_autoconf.h.backup include/linux/compat_autoconf.h
+
+override_dh_auto_install:
+	make install-modules KMODPATH_ARG='INSTALL_MOD_PATH=$(CURDIR)/debian/compat-wireless/lib/modules/$(shell uname -r)'
+
+override_dh_installudev:
+	dh_installudev --name=compat_firmware --priority=50

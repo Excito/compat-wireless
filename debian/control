@@ -1,0 +1,14 @@
+Source: compat-wireless
+Section: admin
+Priority: extra
+Maintainer: Carl Fürstenberg <azatoth@gmail.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.2
+Homepage: http://linuxwireless.org
+
+Package: compat-wireless
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Compat wireless support for ath9k
+ Contains the latest drivers for the ath9k wireless platform
+
